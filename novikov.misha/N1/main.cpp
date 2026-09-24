@@ -44,7 +44,7 @@ bool parseArguments(int argc, char *argv[], ParsedArguments &result) {
   return true;
 }
 
-} // namespace
+}
 
 int main(int argc, char *argv[]) {
   ParsedArguments arguments{"", "", false, false};
