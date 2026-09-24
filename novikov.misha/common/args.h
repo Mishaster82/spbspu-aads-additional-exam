@@ -10,8 +10,7 @@
 namespace novikov {
 
 inline bool isAllowedPrefix(const std::string &prefix,
-                            const DynamicArray<std::string> &allowed)
-{
+                            const DynamicArray<std::string> &allowed) {
   for (std::size_t i = 0; i < allowed.size(); ++i) {
     if (allowed[i] == prefix) {
       return true;
@@ -20,12 +19,10 @@ inline bool isAllowedPrefix(const std::string &prefix,
   return false;
 }
 
-inline bool parseNamedArguments(
-    int argc,
-    char *argv[],
-    const DynamicArray<std::string> &allowed_prefixes,
-    SortedMap<std::string, std::string> &result)
-{
+inline bool
+parseNamedArguments(int argc, char *argv[],
+                    const DynamicArray<std::string> &allowed_prefixes,
+                    SortedMap<std::string, std::string> &result) {
   constexpr int k_max_args = 2;
   if (argc - 1 > k_max_args) {
     return false;
@@ -56,6 +53,6 @@ inline bool parseNamedArguments(
   return true;
 }
 
-}
+} // namespace novikov
 
 #endif

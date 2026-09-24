@@ -14,16 +14,14 @@ constexpr int k_success = 0;
 constexpr int k_invalid_arguments = 1;
 constexpr int k_cannot_open_file = 2;
 
-struct ParsedArguments
-{
+struct ParsedArguments {
   std::string input_file;
   std::string output_file;
   bool has_input_file;
   bool has_output_file;
 };
 
-bool parseArguments(int argc, char *argv[], ParsedArguments &result)
-{
+bool parseArguments(int argc, char *argv[], ParsedArguments &result) {
   novikov::DynamicArray<std::string> allowed_prefixes;
   allowed_prefixes.pushBack("in");
   allowed_prefixes.pushBack("out");
@@ -46,10 +44,9 @@ bool parseArguments(int argc, char *argv[], ParsedArguments &result)
   return true;
 }
 
-}
+} // namespace
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   ParsedArguments arguments{"", "", false, false};
   if (!parseArguments(argc, argv, arguments)) {
     std::cerr << "invalid command line arguments" << '\n';

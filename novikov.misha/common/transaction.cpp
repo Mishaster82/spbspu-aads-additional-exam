@@ -10,18 +10,15 @@ namespace {
 constexpr int k_decimal_base = 10;
 constexpr int k_zero_char = '0';
 
-bool isDigitChar(char c)
-{
+bool isDigitChar(char c) {
   return std::isdigit(static_cast<unsigned char>(c)) != 0;
 }
 
-bool isSpaceChar(char c)
-{
+bool isSpaceChar(char c) {
   return std::isspace(static_cast<unsigned char>(c)) != 0;
 }
 
-bool parseSignedInt(const std::string &line, std::size_t &pos, int &value)
-{
+bool parseSignedInt(const std::string &line, std::size_t &pos, int &value) {
   const std::size_t length = line.size();
   while (pos < length && isSpaceChar(line[pos])) {
     ++pos;
@@ -46,10 +43,9 @@ bool parseSignedInt(const std::string &line, std::size_t &pos, int &value)
   return true;
 }
 
-}
+} // namespace
 
-bool parseTransactionLine(const std::string &line, Transaction &result)
-{
+bool parseTransactionLine(const std::string &line, Transaction &result) {
   std::size_t pos = 0;
   int from = 0;
   int to = 0;
@@ -75,8 +71,7 @@ bool parseTransactionLine(const std::string &line, Transaction &result)
 
 void readTransactions(std::istream &input,
                       DynamicArray<Transaction> &transactions,
-                      std::size_t &ignored_count)
-{
+                      std::size_t &ignored_count) {
   std::string line;
   while (std::getline(input, line)) {
     bool has_content = false;
@@ -100,10 +95,9 @@ void readTransactions(std::istream &input,
   }
 }
 
-void writeTransaction(std::ostream &output, const Transaction &transaction)
-{
+void writeTransaction(std::ostream &output, const Transaction &transaction) {
   output << transaction.from << ' ' << transaction.to << ' '
          << transaction.value << '\n';
 }
 
-}
+} // namespace novikov

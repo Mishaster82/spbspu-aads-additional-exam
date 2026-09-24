@@ -8,12 +8,9 @@
 
 namespace novikov {
 
-template <typename K, typename V>
-class SortedMap
-{
+template <typename K, typename V> class SortedMap {
 public:
-  void insert(const K &key, const V &value)
-  {
+  void insert(const K &key, const V &value) {
     std::size_t i = 0;
     while (i < entries_.size() && entries_[i].first < key) {
       ++i;
@@ -30,8 +27,7 @@ public:
     entries_[i] = std::pair<K, V>(key, value);
   }
 
-  const V *find(const K &key) const
-  {
+  const V *find(const K &key) const {
     for (std::size_t i = 0; i < entries_.size(); ++i) {
       if (!(entries_[i].first < key) && !(key < entries_[i].first)) {
         return &entries_[i].second;
@@ -43,20 +39,14 @@ public:
     return nullptr;
   }
 
-  std::size_t size() const
-  {
-    return entries_.size();
-  }
+  std::size_t size() const { return entries_.size(); }
 
-  bool empty() const
-  {
-    return entries_.empty();
-  }
+  bool empty() const { return entries_.empty(); }
 
 private:
   DynamicArray<std::pair<K, V>> entries_;
 };
 
-}
+} // namespace novikov
 
 #endif

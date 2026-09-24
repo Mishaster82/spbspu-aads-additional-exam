@@ -7,10 +7,10 @@ namespace novikov {
 
 namespace {
 
-bool parseSignedInt(const std::string &line, std::size_t &pos, int &value)
-{
+bool parseSignedInt(const std::string &line, std::size_t &pos, int &value) {
   const std::size_t length = line.size();
-  while (pos < length && std::isspace(static_cast<unsigned char>(line[pos])) != 0) {
+  while (pos < length &&
+         std::isspace(static_cast<unsigned char>(line[pos])) != 0) {
     ++pos;
   }
 
@@ -19,12 +19,14 @@ bool parseSignedInt(const std::string &line, std::size_t &pos, int &value)
     negative = (line[pos] == '-');
     ++pos;
   }
-  if (pos >= length || std::isdigit(static_cast<unsigned char>(line[pos])) == 0) {
+  if (pos >= length ||
+      std::isdigit(static_cast<unsigned char>(line[pos])) == 0) {
     return false;
   }
 
   int result = 0;
-  while (pos < length && std::isdigit(static_cast<unsigned char>(line[pos])) != 0) {
+  while (pos < length &&
+         std::isdigit(static_cast<unsigned char>(line[pos])) != 0) {
     result = result * 10 + (line[pos] - '0');
     ++pos;
   }
@@ -32,8 +34,7 @@ bool parseSignedInt(const std::string &line, std::size_t &pos, int &value)
   return true;
 }
 
-void sortInts(DynamicArray<int> &values)
-{
+void sortInts(DynamicArray<int> &values) {
   for (std::size_t i = 1; i < values.size(); ++i) {
     int key = values[i];
     std::size_t j = i;
@@ -45,10 +46,9 @@ void sortInts(DynamicArray<int> &values)
   }
 }
 
-}
+} // namespace
 
-bool parseCommissionLine(const std::string &line, Commission &result)
-{
+bool parseCommissionLine(const std::string &line, Commission &result) {
   std::size_t pos = 0;
   int account = 0;
   int percent = 0;
@@ -56,8 +56,7 @@ bool parseCommissionLine(const std::string &line, Commission &result)
   int to = 0;
 
   if (!parseSignedInt(line, pos, account) ||
-      !parseSignedInt(line, pos, percent) ||
-      !parseSignedInt(line, pos, from) ||
+      !parseSignedInt(line, pos, percent) || !parseSignedInt(line, pos, from) ||
       !parseSignedInt(line, pos, to)) {
     return false;
   }
@@ -80,8 +79,8 @@ bool parseCommissionLine(const std::string &line, Commission &result)
   return true;
 }
 
-bool readCommissions(std::istream &input, DynamicArray<Commission> &commissions)
-{
+bool readCommissions(std::istream &input,
+                     DynamicArray<Commission> &commissions) {
   std::string line;
   while (std::getline(input, line)) {
     Commission c{0, 0, 0, 0};
@@ -93,9 +92,9 @@ bool readCommissions(std::istream &input, DynamicArray<Commission> &commissions)
   return true;
 }
 
-DynamicArray<CommissionInterval> mergeCommissionsForAccount(
-    const DynamicArray<Commission> &commissions, int signedAccount)
-{
+DynamicArray<CommissionInterval>
+mergeCommissionsForAccount(const DynamicArray<Commission> &commissions,
+                           int signedAccount) {
   DynamicArray<Commission> filtered;
   for (std::size_t i = 0; i < commissions.size(); ++i) {
     if (commissions[i].account == signedAccount) {
@@ -138,8 +137,7 @@ DynamicArray<CommissionInterval> mergeCommissionsForAccount(
 
   DynamicArray<CommissionInterval> merged;
   for (std::size_t i = 0; i < result.size(); ++i) {
-    if (merged.size() > 0 &&
-        merged[merged.size() - 1].to == result[i].from &&
+    if (merged.size() > 0 && merged[merged.size() - 1].to == result[i].from &&
         merged[merged.size() - 1].percent == result[i].percent) {
       merged[merged.size() - 1].to = result[i].to;
     } else {
@@ -149,10 +147,9 @@ DynamicArray<CommissionInterval> mergeCommissionsForAccount(
   return merged;
 }
 
-DynamicArray<CommissionInterval> subtractPaidIntervals(
-    const DynamicArray<CommissionInterval> &intervals,
-    const DynamicArray<CommissionInterval> &paid)
-{
+DynamicArray<CommissionInterval>
+subtractPaidIntervals(const DynamicArray<CommissionInterval> &intervals,
+                      const DynamicArray<CommissionInterval> &paid) {
   DynamicArray<CommissionInterval> result;
   for (std::size_t i = 0; i < intervals.size(); ++i) {
     int a = intervals[i].from;
@@ -198,9 +195,9 @@ DynamicArray<CommissionInterval> subtractPaidIntervals(
   return result;
 }
 
-long long computeCommissionAmount(
-    const DynamicArray<CommissionInterval> &intervals, int from, int to)
-{
+long long
+computeCommissionAmount(const DynamicArray<CommissionInterval> &intervals,
+                        int from, int to) {
   if (from >= to) {
     return 0;
   }
@@ -217,4 +214,4 @@ long long computeCommissionAmount(
   return total / 100;
 }
 
-}
+} // namespace novikov

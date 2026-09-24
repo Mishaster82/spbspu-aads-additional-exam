@@ -6,22 +6,12 @@
 
 namespace novikov {
 
-template <typename T>
-class DynamicArray
-{
+template <typename T> class DynamicArray {
 public:
-  DynamicArray()
-    : data_(nullptr)
-    , size_(0)
-    , capacity_(0)
-  {
-  }
+  DynamicArray() : data_(nullptr), size_(0), capacity_(0) {}
 
   DynamicArray(const DynamicArray &other)
-    : data_(nullptr)
-    , size_(0)
-    , capacity_(0)
-  {
+      : data_(nullptr), size_(0), capacity_(0) {
     reserve(other.size_);
     for (std::size_t i = 0; i < other.size_; ++i) {
       data_[i] = other.data_[i];
@@ -29,8 +19,7 @@ public:
     size_ = other.size_;
   }
 
-  DynamicArray &operator=(const DynamicArray &other)
-  {
+  DynamicArray &operator=(const DynamicArray &other) {
     if (this != &other) {
       clear();
       reserve(other.size_);
@@ -42,13 +31,9 @@ public:
     return *this;
   }
 
-  ~DynamicArray()
-  {
-    delete[] data_;
-  }
+  ~DynamicArray() { delete[] data_; }
 
-  void pushBack(const T &value)
-  {
+  void pushBack(const T &value) {
     if (size_ == capacity_) {
       const std::size_t new_capacity = capacity_ == 0 ? 1 : capacity_ * 2;
       reserve(new_capacity);
@@ -57,54 +42,26 @@ public:
     ++size_;
   }
 
-  void clear()
-  {
-    size_ = 0;
-  }
+  void clear() { size_ = 0; }
 
-  std::size_t size() const
-  {
-    return size_;
-  }
+  std::size_t size() const { return size_; }
 
-  bool empty() const
-  {
-    return size_ == 0;
-  }
+  bool empty() const { return size_ == 0; }
 
-  T &operator[](std::size_t index)
-  {
-    return data_[index];
-  }
+  T &operator[](std::size_t index) { return data_[index]; }
 
-  const T &operator[](std::size_t index) const
-  {
-    return data_[index];
-  }
+  const T &operator[](std::size_t index) const { return data_[index]; }
 
-  T *begin()
-  {
-    return data_;
-  }
+  T *begin() { return data_; }
 
-  T *end()
-  {
-    return data_ + size_;
-  }
+  T *end() { return data_ + size_; }
 
-  const T *begin() const
-  {
-    return data_;
-  }
+  const T *begin() const { return data_; }
 
-  const T *end() const
-  {
-    return data_ + size_;
-  }
+  const T *end() const { return data_ + size_; }
 
 private:
-  void reserve(std::size_t new_capacity)
-  {
+  void reserve(std::size_t new_capacity) {
     if (new_capacity <= capacity_) {
       return;
     }
@@ -122,6 +79,6 @@ private:
   std::size_t capacity_;
 };
 
-}
+} // namespace novikov
 
 #endif

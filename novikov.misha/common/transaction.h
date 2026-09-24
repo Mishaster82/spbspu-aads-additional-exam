@@ -10,8 +10,7 @@
 
 namespace novikov {
 
-struct Transaction
-{
+struct Transaction {
   int from;
   int to;
   int value;
@@ -25,6 +24,6 @@ void readTransactions(std::istream &input,
 
 void writeTransaction(std::ostream &output, const Transaction &transaction);
 
-}
+} // namespace novikov
 
 #endif
