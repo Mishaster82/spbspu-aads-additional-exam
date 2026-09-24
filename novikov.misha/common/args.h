@@ -1,5 +1,5 @@
-#ifndef ARGS_H_
-#define ARGS_H_
+#ifndef COMMON_ARGS_H_
+#define COMMON_ARGS_H_
 
 #include <cstddef>
 #include <string>
