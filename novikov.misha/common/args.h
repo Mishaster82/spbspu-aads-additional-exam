@@ -1,1 +1,54 @@
-int main(){}
+#ifndef COMMON_ARGS_H_
+#define COMMON_ARGS_H_
+
+#include <cstddef>
+#include <string>
+
+#include "dynamic_array.h"
+#include "sorted_map.h"
+
+namespace novikov {
+
+inline bool parseNamedArguments(int argc, char *argv[], const DynamicArray<std::string> &allowedPrefixes, SortedMap<std::string, std::string> &result)
+{
+  if (argc - 1 > 2) {
+    return false;
+  }
+
+  for (int i = 1; i < argc; ++i) {
+    const std::string argument = argv[i];
+    const std::size_t colon = argument.find(':');
+    if (colon == std::string::npos) {
+      return false;
+    }
+
+    const std::string prefix = argument.substr(0, colon);
+    const std::string value = argument.substr(colon + 1);
+    if (prefix.empty() || value.empty()) {
+      return false;
+    }
+
+    bool allowed = false;
+    for (std::size_t j = 0; j < allowedPrefixes.size(); ++j) {
+      if (allowedPrefixes[j] == prefix) {
+        allowed = true;
+        break;
+      }
+    }
+    if (!allowed) {
+      return false;
+    }
+
+    if (result.find(prefix) != nullptr) {
+      return false;
+    }
+
+    result.insert(prefix, value);
+  }
+
+  return true;
+}
+
+}
+
+#endif
