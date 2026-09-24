@@ -46,7 +46,7 @@ void sortInts(DynamicArray<int> &values) {
   }
 }
 
-} // namespace
+}
 
 bool parseCommissionLine(const std::string &line, Commission &result) {
   std::size_t pos = 0;
@@ -214,4 +214,4 @@ computeCommissionAmount(const DynamicArray<CommissionInterval> &intervals,
   return total / 100;
 }
 
-} // namespace novikov
+}

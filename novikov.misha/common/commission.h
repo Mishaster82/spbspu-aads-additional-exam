@@ -39,6 +39,6 @@ long long
 computeCommissionAmount(const DynamicArray<CommissionInterval> &intervals,
                         int from, int to);
 
-} // namespace novikov
+}
 
 #endif
