@@ -3,10 +3,10 @@
 #include <iostream>
 #include <string>
 
-#include <common/args.h>
-#include <common/dynamic_array.h>
-#include <common/sorted_map.h>
-#include <common/transaction.h>
+#include <args.h>
+#include <dynamic_array.h>
+#include <sorted_map.h>
+#include <transaction.h>
 
 namespace {
 
