@@ -1,11 +1,11 @@
-#ifndef COMMON_ARGS_H_
-#define COMMON_ARGS_H_
+#ifndef ARGS_H
+#define ARGS_H
 
 #include <cstddef>
 #include <string>
 
-#include "dynamic_array.h"
-#include "sorted_map.h"
+#include <dynamic_array.h>
+#include <sorted_map.h>
 
 namespace novikov {
 
@@ -20,12 +20,14 @@ inline bool isAllowedPrefix(const std::string &prefix,
   return false;
 }
 
-inline bool parseNamedArguments(int argc,
-                                char *argv[],
-                                const DynamicArray<std::string> &allowedPrefixes,
-                                SortedMap<std::string, std::string> &result)
+inline bool parseNamedArguments(
+    int argc,
+    char *argv[],
+    const DynamicArray<std::string> &allowed_prefixes,
+    SortedMap<std::string, std::string> &result)
 {
-  if (argc - 1 > 2) {
+  constexpr int k_max_args = 2;
+  if (argc - 1 > k_max_args) {
     return false;
   }
 
@@ -41,7 +43,7 @@ inline bool parseNamedArguments(int argc,
     if (prefix.empty() || value.empty()) {
       return false;
     }
-    if (!isAllowedPrefix(prefix, allowedPrefixes)) {
+    if (!isAllowedPrefix(prefix, allowed_prefixes)) {
       return false;
     }
     if (result.find(prefix) != nullptr) {

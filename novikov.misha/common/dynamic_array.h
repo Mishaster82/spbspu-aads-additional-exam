@@ -1,7 +1,8 @@
-#ifndef COMMON_DYNAMIC_ARRAY_H_
-#define COMMON_DYNAMIC_ARRAY_H_
+#ifndef DYNAMIC_ARRAY_H
+#define DYNAMIC_ARRAY_H
 
 #include <cstddef>
+#include <utility>
 
 namespace novikov {
 
@@ -49,7 +50,8 @@ public:
   void pushBack(const T &value)
   {
     if (size_ == capacity_) {
-      reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+      const std::size_t new_capacity = capacity_ == 0 ? 1 : capacity_ * 2;
+      reserve(new_capacity);
     }
     data_[size_] = value;
     ++size_;
@@ -101,18 +103,18 @@ public:
   }
 
 private:
-  void reserve(std::size_t newCapacity)
+  void reserve(std::size_t new_capacity)
   {
-    if (newCapacity <= capacity_) {
+    if (new_capacity <= capacity_) {
       return;
     }
-    T *newData = new T[newCapacity];
+    T *new_data = new T[new_capacity];
     for (std::size_t i = 0; i < size_; ++i) {
-      newData[i] = data_[i];
+      new_data[i] = data_[i];
     }
     delete[] data_;
-    data_ = newData;
-    capacity_ = newCapacity;
+    data_ = new_data;
+    capacity_ = new_capacity;
   }
 
   T *data_;

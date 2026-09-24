@@ -1,10 +1,10 @@
-#ifndef COMMON_SORTED_MAP_H_
-#define COMMON_SORTED_MAP_H_
+#ifndef SORTED_MAP_H
+#define SORTED_MAP_H
 
 #include <cstddef>
 #include <utility>
 
-#include "dynamic_array.h"
+#include <dynamic_array.h>
 
 namespace novikov {
 
@@ -18,7 +18,8 @@ public:
     while (i < entries_.size() && entries_[i].first < key) {
       ++i;
     }
-    if (i < entries_.size() && !(key < entries_[i].first) && !(entries_[i].first < key)) {
+    if (i < entries_.size() && !(key < entries_[i].first) &&
+        !(entries_[i].first < key)) {
       entries_[i].second = value;
       return;
     }
