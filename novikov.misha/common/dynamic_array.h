@@ -79,6 +79,6 @@ private:
   std::size_t capacity_;
 };
 
-} // namespace novikov
+}
 
 #endif

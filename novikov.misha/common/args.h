@@ -53,6 +53,6 @@ parseNamedArguments(int argc, char *argv[],
   return true;
 }
 
-} // namespace novikov
+}
 
 #endif

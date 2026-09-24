@@ -43,7 +43,7 @@ bool parseSignedInt(const std::string &line, std::size_t &pos, int &value) {
   return true;
 }
 
-} // namespace
+}
 
 bool parseTransactionLine(const std::string &line, Transaction &result) {
   std::size_t pos = 0;
@@ -100,4 +100,4 @@ void writeTransaction(std::ostream &output, const Transaction &transaction) {
          << transaction.value << '\n';
 }
 
-} // namespace novikov
+}

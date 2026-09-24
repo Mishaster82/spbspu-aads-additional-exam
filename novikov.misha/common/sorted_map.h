@@ -47,6 +47,6 @@ private:
   DynamicArray<std::pair<K, V>> entries_;
 };
 
-} // namespace novikov
+}
 
 #endif

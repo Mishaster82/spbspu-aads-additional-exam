@@ -24,6 +24,6 @@ void readTransactions(std::istream &input,
 
 void writeTransaction(std::ostream &output, const Transaction &transaction);
 
-} // namespace novikov
+}
 
 #endif
